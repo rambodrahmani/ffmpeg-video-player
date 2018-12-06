@@ -40,6 +40,10 @@
 #include <SDL.h>
 #include <SDL_thread.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
 /**
  *
  */
