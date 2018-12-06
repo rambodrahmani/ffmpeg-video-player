@@ -1,1 +1,0 @@
-/usr/bin/cc -g   CMakeFiles/player-sdl2.dir/player-sdl2.c.o  -o player-sdl2 -lm 

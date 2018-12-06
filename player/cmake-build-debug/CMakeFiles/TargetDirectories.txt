@@ -1,3 +1,0 @@
-/home/rambodrahmani/DevOps/workspace-cpp/RH-Tests/FFmpeg-Video-Player/player/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/rambodrahmani/DevOps/workspace-cpp/RH-Tests/FFmpeg-Video-Player/player/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/rambodrahmani/DevOps/workspace-cpp/RH-Tests/FFmpeg-Video-Player/player/cmake-build-debug/CMakeFiles/player-sdl2.dir

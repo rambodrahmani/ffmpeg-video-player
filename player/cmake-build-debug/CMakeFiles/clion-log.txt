@@ -1,4 +1,0 @@
-/opt/clion/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/rambodrahmani/DevOps/workspace-cpp/RH-Tests/FFmpeg-Video-Player/player
--- Configuring done
--- Generating done
--- Build files have been written to: /home/rambodrahmani/DevOps/workspace-cpp/RH-Tests/FFmpeg-Video-Player/player/cmake-build-debug
