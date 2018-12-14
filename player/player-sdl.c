@@ -226,7 +226,9 @@
 #define CONFIG_AVFORMAT 1
 
 /**
- *
+ * The libavdevice library provides a generic framework for grabbing from and
+ * rendering to many common multimedia input/output devices, and supports several
+ * input and output devices, including Video4Linux2, VfW, DShow, and ALSA.
  */
 #define CONFIG_AVDEVICE 1
 
@@ -755,7 +757,7 @@ void init_dynload(void);
  *
  * @param   argc    command line arguments counter.
  * @param   argv    command line arguments.
- * @param   options
+ * @param   options program command line options definition list
  */
 void parse_loglevel(int argc, char **argv, const OptionDefinition *options);
 
@@ -794,6 +796,29 @@ static void check_options(const OptionDefinition * options);
  * allocate the *_opts contexts.
  */
 void init_opts(void);
+
+/**
+ * Uninitialize the cmdutils option system, in particular
+ * free the *_opts contexts and their contents.
+ */
+void uninit_opts(void);
+
+/**
+ * Termination request signals handler.
+ *
+ * @param   sig
+ */
+static void sigterm_handler(int sig);
+
+/**
+ * Print the program banner to stderr. The banner contents depend on the
+ * current version of the repository and of the libav* libraries used by
+ * the program.
+ *
+ * @param   argc    command line arguments counter.
+ * @param   argv    command line arguments.
+ */
+void show_banner(int argc, char **argv, const OptionDefinition *options);
 
 /**
  * Register a program-specific cleanup routine.
@@ -1808,12 +1833,6 @@ void init_opts(void)
     av_dict_set(&sws_dict, "flags", "bicubic", 0);
 }
 
-/**
- * Uninitialize the cmdutils option system, in particular
- * free the *_opts contexts and their contents.
- */
-void uninit_opts(void);
-
 void uninit_opts(void)
 {
     av_dict_free(&swr_opts);
@@ -1846,6 +1865,7 @@ static void do_exit(VideoState *is)
 
 static void sigterm_handler(int sig)
 {
+    // terminate program execution with 123
     exit(123);
 }
 
@@ -6941,13 +6961,6 @@ void parse_loglevel(int argc, char **argv, const OptionDefinition *options)
     }
 }
 
-/**
- * Print the program banner to stderr. The banner contents depend on the
- * current version of the repository and of the libav* libraries used by
- * the program.
- */
-void show_banner(int argc, char **argv, const OptionDefinition *options);
-
 void show_banner(int argc, char **argv, const OptionDefinition *options)
 {
     int idx = locate_option(argc, argv, options, "version");
@@ -7220,10 +7233,10 @@ int main(int argc, char * argv[])
     // parse and apply the -loglevel command line option
     parse_loglevel(argc, argv, program_options);
 
-    // register all codecs, demuxers and protocols
+    // register all libavdevice codecs, demuxers and protocols
     #if CONFIG_AVDEVICE
         av_log(NULL, AV_LOG_INFO, "Initializing libavdevice and registering all the input and output devices.\n");
-        avdevice_register_all();
+        avdevice_register_all();    // [1]
     #endif
 
     // do a global initialization of network libraries
@@ -7231,8 +7244,11 @@ int main(int argc, char * argv[])
 
     init_opts();
 
-    signal(SIGINT , sigterm_handler); /* Interrupt (ANSI).    */
-    signal(SIGTERM, sigterm_handler); /* Termination (ANSI).  */
+    // Set SIGINT - "interrupt", interactive attention request signal handler
+    signal(SIGINT , sigterm_handler);
+
+    // Set SIGTERM - "terminate", termination request signal handler
+    signal(SIGTERM, sigterm_handler);
 
     show_banner(argc, argv, program_options);
 
@@ -7341,3 +7357,18 @@ int main(int argc, char * argv[])
 
     return 0;
 }
+
+// [1]
+/**
+ *  Libavdevice is a complementary library to libavformat. It provides various "special"
+ *  platform-specific muxers and demuxers, e.g. for grabbing devices, audio capture
+ *  and playback etc. As a consequence, the (de)muxers in libavdevice are of the
+ *  AVFMT_NOFILE type (they use their own I/O functions).
+ *
+ *  The filename passed to avformat_open_input() often does not refer to an actually
+ *  existing file, but has some special device-specific meaning - e.g. for xcbgrab
+ *  it is the display name.
+ *
+ *  To use libavdevice, simply call avdevice_register_all() to register all compiled
+ *  muxers and demuxers. They all use standard libavformat API.
+ */
