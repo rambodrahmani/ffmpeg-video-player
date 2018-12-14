@@ -584,7 +584,11 @@ typedef struct VideoState
     SDL_cond *continue_read_thread;
 } VideoState;
 
-/* options specified by the user */
+/**
+ * Options specified by the user.
+ */
+
+//
 static AVInputFormat *file_iformat;
 
 //
@@ -611,7 +615,7 @@ static int screen_left = SDL_WINDOWPOS_CENTERED;
 //
 static int screen_top = SDL_WINDOWPOS_CENTERED;
 
-//
+// set this to disable audio output
 static int audio_disable;
 
 //
@@ -629,8 +633,8 @@ static int seek_by_bytes = -1;
 //
 static float seek_interval = 10;
 
-//
-static int display_disable = 1;
+// set this to disable output to display
+static int display_disable;
 
 //
 static int borderless;
@@ -7440,34 +7444,44 @@ int main(int argc, char * argv[])
         exit(1);
     }
 
+    // if output to display is disabled
     if (display_disable)
     {
         video_disable = 1;
     }
 
+    // SDL video, audio and timer subsystems are to be initialized
     sdl_flags = SDL_INIT_VIDEO | SDL_INIT_AUDIO | SDL_INIT_TIMER;
 
+    // if audio output is disabled
     if (audio_disable)
     {
+        // remove SDL audio subsystem
         sdl_flags &= ~SDL_INIT_AUDIO;
     }
     else
     {
-        /* Try to work around an occasional ALSA buffer underflow issue when the
-         * period size is NPOT due to ALSA resampling by forcing the buffer size. */
+        /*
+         * Try to work around an occasional ALSA buffer underflow issue when the
+         * period size is NPOT due to ALSA resampling by forcing the buffer size.
+         */
         if (!SDL_getenv("SDL_AUDIO_ALSA_SET_BUFFER_SIZE"))
         {
             SDL_setenv("SDL_AUDIO_ALSA_SET_BUFFER_SIZE","1", 1);
         }
     }
 
+    // if output to display is disabled
     if (display_disable)
     {
+        // remove SDL video subsystem
         sdl_flags &= ~SDL_INIT_VIDEO;
     }
 
-    if (SDL_Init (sdl_flags))
+    // initialize SDL subsystems
+    if (SDL_Init(sdl_flags))
     {
+        // on failure call SDL_GetError() for more information
         av_log(NULL, AV_LOG_FATAL, "Could not initialize SDL - %s\n", SDL_GetError());
         av_log(NULL, AV_LOG_FATAL, "(Did you set the DISPLAY variable?)\n");
 
@@ -7475,12 +7489,19 @@ int main(int argc, char * argv[])
         exit(1);
     }
 
+    // SDL_SYSWMEVENT will automatically be dropped from the event queue
     SDL_EventState(SDL_SYSWMEVENT, SDL_IGNORE);
+
+    // SDL_USEREVENT will automatically be dropped from the event queue
     SDL_EventState(SDL_USEREVENT, SDL_IGNORE);
 
+    // initialize a packet with default values
     av_init_packet(&flush_pkt);
+
+    // data and size members have to be initialized separately
     flush_pkt.data = (uint8_t *)&flush_pkt;
 
+    // if output to display is not disabled
     if (!display_disable)
     {
         int flags = SDL_WINDOW_HIDDEN;
