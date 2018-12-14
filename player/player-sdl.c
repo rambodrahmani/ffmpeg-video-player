@@ -171,42 +171,42 @@
 #define FF_QUIT_EVENT    (SDL_USEREVENT + 2)
 
 /**
- *
+ * Add indentation when printing to console.
  */
 #define INDENT 1
 
 /**
- *
+ * Show version when printing libs information.
  */
 #define SHOW_VERSION 2
 
 /**
- *
+ * Show configuration when printing libs information.
  */
 #define SHOW_CONFIG 4
 
 /**
- *
+ * Show copyright when printing program information.
  */
 #define SHOW_COPYRIGHT 8
 
 /**
- *
+ * Current year to be used when printing program information.
  */
 #define CONFIG_THIS_YEAR 2018
 
 /**
- *
+ * FFMPEG version to be used when printing program information.
  */
 #define FFMPEG_VERSION "4.1"
 
 /**
- *
+ * gcc version to be used when printing program information.
  */
 #define CC_IDENT "gcc (GCC) 8.2.1 (Arch Linux)"
 
 /**
- *
+ * FFMPEG configuration to be used when printing program information.
  */
 #define FFMPEG_CONFIGURATION "--disable-everything --disable-avdevice --disable-avfilter --disable-bzlib --disable-doc --disable-ffprobe --disable-lzo --disable-network --disable-postproc --disable-zlib --enable-fft --enable-rdft --enable-shared --disable-programs --disable-hwaccels --enable-hwaccel=h264_vda --disable-dxva2 --disable-vaapi --disable-vda --disable-vdpau --optflags=-O2 --enable-pic --enable-protocol=file --enable-encoder=libx264 --enable-encoder=libfaac --enable-muxer=mp4 --enable-muxer=rtp --extra-cflags='-I/home/admin/avaconverter/third_party/ffmpeg/../faac/files/faac-1.28/include -I/home/admin/avaconverter/third_party/ffmpeg/../x264/config/AvaConverter/linux/x64 -I/home/admin/avaconverter/third_party/ffmpeg/../x264/files/x264' --enable-libx264 --enable-gpl --enable-libfaac --enable-nonfree"
 
@@ -586,57 +586,160 @@ typedef struct VideoState
 
 /* options specified by the user */
 static AVInputFormat *file_iformat;
+
+//
 static const char *input_filename;
+
+//
 static const char *window_title;
+
+//
 static int default_width  = 640;
+
+//
 static int default_height = 480;
+
+//
 static int screen_width  = 0;
+
+//
 static int screen_height = 0;
+
+//
 static int screen_left = SDL_WINDOWPOS_CENTERED;
+
+//
 static int screen_top = SDL_WINDOWPOS_CENTERED;
+
+//
 static int audio_disable;
+
+//
 static int video_disable;
+
+//
 static int subtitle_disable;
+
+//
 static const char* wanted_stream_spec[AVMEDIA_TYPE_NB] = {0};
+
+//
 static int seek_by_bytes = -1;
+
+//
 static float seek_interval = 10;
-static int display_disable;
+
+//
+static int display_disable = 1;
+
+//
 static int borderless;
+
+//
 static int startup_volume = 100;
+
+//
 static int show_status = 1;
+
+//
 static int av_sync_type = AV_SYNC_AUDIO_MASTER;
+
+//
 static int64_t start_time = AV_NOPTS_VALUE;
+
+//
 static int64_t duration = AV_NOPTS_VALUE;
+
+//
 static int fast = 0;
+
+//
 static int genpts = 0;
+
+//
 static int lowres = 0;
+
+//
 static int decoder_reorder_pts = -1;
+
+//
 static int autoexit;
+
+//
 static int exit_on_keydown;
+
+//
 static int exit_on_mousedown;
+
+//
 static int loop = 1;
+
+//
 static int framedrop = -1;
+
+//
 static int infinite_buffer = -1;
+
+//
 static enum ShowMode show_mode = SHOW_MODE_NONE;
+
+//
 static const char *audio_codec_name;
+
+//
 static const char *subtitle_codec_name;
+
+//
 static const char *video_codec_name;
+
+//
 double rdftspeed = 0.02;
+
+//
 static int64_t cursor_last_shown;
+
+//
 static int cursor_hidden = 0;
+
+//
 static const char **vfilters_list = NULL;
+
+//
 static int nb_vfilters = 0;
+
+//
 static char *afilters = NULL;
+
+//
 static int autorotate = 1;
+
+//
 static int find_stream_info = 1;
+
+//
 static int is_full_screen;
+
+//
 static int64_t audio_callback_time;
+
+//
 static AVPacket flush_pkt;
+
+//
 static SDL_Window *window;
+
+//
 static SDL_Renderer *renderer;
+
+//
 static SDL_RendererInfo renderer_info = {0};
+
+//
 static SDL_AudioDeviceID audio_dev;
 
+/**
+ *
+ */
 static const struct TextureFormatEntry
 {
     enum AVPixelFormat format;
@@ -748,6 +851,44 @@ typedef struct SpecifierOpt
 } SpecifierOpt;
 
 /**
+ * Libraries configuration mismatch found flag.
+ */
+static int warned_cfg = 0;
+
+/**
+ * Uses av_log to print information (version or configuration based on the given flags)
+ * for the given library.
+ */
+#define PRINT_LIB_INFO(libname, LIBNAME, flags, level)                  \
+    if (CONFIG_##LIBNAME) {                                             \
+        const char *indent = flags & INDENT? "  " : "";                 \
+        if (flags & SHOW_VERSION) {                                     \
+            unsigned int version = libname##_version();                 \
+            av_log(NULL, level,                                         \
+                   "%slib%-11s %2d.%3d.%3d / %2d.%3d.%3d\n",            \
+                   indent, #libname,                                    \
+                   LIB##LIBNAME##_VERSION_MAJOR,                        \
+                   LIB##LIBNAME##_VERSION_MINOR,                        \
+                   LIB##LIBNAME##_VERSION_MICRO,                        \
+                   AV_VERSION_MAJOR(version), AV_VERSION_MINOR(version),\
+                   AV_VERSION_MICRO(version));                          \
+        }                                                               \
+        if (flags & SHOW_CONFIG) {                                      \
+            const char *cfg = libname##_configuration();                \
+            if (strcmp(FFMPEG_CONFIGURATION, cfg)) {                    \
+                if (!warned_cfg) {                                      \
+                    av_log(NULL, level,                                 \
+                            "%sWARNING: library configuration mismatch\n", \
+                            indent);                                    \
+                    warned_cfg = 1;                                     \
+                }                                                       \
+                av_log(NULL, level, "%s%-11s configuration: %s\n",      \
+                        indent, #libname, cfg);                         \
+            }                                                           \
+        }                                                               \
+    }                                                                   \
+
+/**
  * Initializes dynamic library loading.
  */
 void init_dynload(void);
@@ -817,8 +958,33 @@ static void sigterm_handler(int sig);
  *
  * @param   argc    command line arguments counter.
  * @param   argv    command line arguments.
+ * @param   options program command line options definition list
  */
 void show_banner(int argc, char **argv, const OptionDefinition *options);
+
+/**
+ * Prints program information (FFMPEG version, copyright, gcc and configuration.
+ *
+ * @param   flags   INDENT:         indent output message
+ *                  SHOW_COPYRIGHT: print copyright message
+ * @param   level   the importance level of the message
+ */
+static void print_program_info(int flags, int level);
+
+/**
+ * Prints all libraries information (verion or configuration based on flags).
+ *
+ * @param   flags   INDENT:         indent output message
+ *                  SHOW_VERSION:   print library version
+ *                  SHOW_CONFIG:    print library configuration
+ * @param   level   the importance level of the message
+ */
+static void print_all_libs_info(int flags, int level);
+
+/**
+ * Shows program usage information.
+ */
+static void show_usage(void);
 
 /**
  * Register a program-specific cleanup routine.
@@ -844,6 +1010,7 @@ void exit_program(int ret)
         program_exit(ret);
     }
 
+    // terminate program execution with exit
     exit(ret);
 }
 
@@ -1860,6 +2027,8 @@ static void do_exit(VideoState *is)
         printf("\n");
     SDL_Quit();
     av_log(NULL, AV_LOG_QUIET, "%s", "");
+
+    // terminate program execution with 0
     exit(0);
 }
 
@@ -4619,14 +4788,21 @@ static int opt_show_mode(void *optctx, const char *opt, const char *arg)
 
 static void opt_input_file(void *optctx, const char *filename)
 {
-    if (input_filename) {
-        av_log(NULL, AV_LOG_FATAL,
-               "Argument '%s' provided as input filename, but '%s' was already specified.\n",
-               filename, input_filename);
+    // check if a file name has already been provided in the command line arguments
+    if (input_filename)
+    {
+        av_log(NULL, AV_LOG_FATAL, "Argument '%s' provided as input filename, but '%s' was already specified.\n", filename, input_filename);
+
+        // terminate program execution with 1
         exit(1);
     }
+
+    // if filename is not equal to '-'
     if (!strcmp(filename, "-"))
+    {
         filename = "pipe:";
+    }
+
     input_filename = filename;
 }
 
@@ -5107,7 +5283,10 @@ int opt_max_alloc(void *optctx, const char *opt, const char *arg);
 int opt_cpuflags(void *optctx, const char *opt, const char *arg);
 
 /**
+ * Suppress printing banner.
  *
+ * All FFmpeg tools will normally show a copyright notice, build options and library
+ * versions. This option can be used to suppress printing this information.
  */
 int hide_banner = 0;
 
@@ -5778,48 +5957,28 @@ int show_help(void *optctx, const char *opt, const char *arg)
 
 static void print_program_info(int flags, int level)
 {
+    // indent using 2 spaces if the INDENT flag is set
     const char *indent = flags & INDENT? "  " : "";
 
+    // print program name and version
     av_log(NULL, level, "%s version " FFMPEG_VERSION, program_name);
+
+    // if the copyright message has to be shown
     if (flags & SHOW_COPYRIGHT)
-        av_log(NULL, level, " Copyright (c) %d-%d the FFmpeg developers",
-               program_birth_year, CONFIG_THIS_YEAR);
+    {
+        // print copyright message
+        av_log(NULL, level, " Copyright (c) %d-%d the FFmpeg developers", program_birth_year, CONFIG_THIS_YEAR);
+    }
+
+    // print new line
     av_log(NULL, level, "\n");
+
+    // print gcc information message followed by a new line
     av_log(NULL, level, "%sbuilt with %s\n", indent, CC_IDENT);
 
+    // print ffmpeg configuration message
     av_log(NULL, level, "%sconfiguration: " FFMPEG_CONFIGURATION "\n", indent);
 }
-
-static int warned_cfg = 0;
-
-#define PRINT_LIB_INFO(libname, LIBNAME, flags, level)                  \
-    if (CONFIG_##LIBNAME) {                                             \
-        const char *indent = flags & INDENT? "  " : "";                 \
-        if (flags & SHOW_VERSION) {                                     \
-            unsigned int version = libname##_version();                 \
-            av_log(NULL, level,                                         \
-                   "%slib%-11s %2d.%3d.%3d / %2d.%3d.%3d\n",            \
-                   indent, #libname,                                    \
-                   LIB##LIBNAME##_VERSION_MAJOR,                        \
-                   LIB##LIBNAME##_VERSION_MINOR,                        \
-                   LIB##LIBNAME##_VERSION_MICRO,                        \
-                   AV_VERSION_MAJOR(version), AV_VERSION_MINOR(version),\
-                   AV_VERSION_MICRO(version));                          \
-        }                                                               \
-        if (flags & SHOW_CONFIG) {                                      \
-            const char *cfg = libname##_configuration();                \
-            if (strcmp(FFMPEG_CONFIGURATION, cfg)) {                    \
-                if (!warned_cfg) {                                      \
-                    av_log(NULL, level,                                 \
-                            "%sWARNING: library configuration mismatch\n", \
-                            indent);                                    \
-                    warned_cfg = 1;                                     \
-                }                                                       \
-                av_log(NULL, level, "%s%-11s configuration: %s\n",      \
-                        indent, #libname, cfg);                         \
-            }                                                           \
-        }                                                               \
-    }                                                                   \
 
 /**
 * Return the libpostproc build-time configuration.
@@ -6963,15 +7122,23 @@ void parse_loglevel(int argc, char **argv, const OptionDefinition *options)
 
 void show_banner(int argc, char **argv, const OptionDefinition *options)
 {
+    // locate the -version option index
     int idx = locate_option(argc, argv, options, "version");
 
+    // if either the -hide_banner or -version command line options are set
     if (hide_banner || idx)
     {
+        // return
         return;
     }
 
+    // print indented program inforamtion
     print_program_info(INDENT|SHOW_COPYRIGHT, AV_LOG_INFO);
+
+    // print all enabled libraries configuration
     print_all_libs_info(INDENT|SHOW_CONFIG,  AV_LOG_INFO);
+
+    // print all enabled libraries version
     print_all_libs_info(INDENT|SHOW_VERSION, AV_LOG_INFO);
 }
 
@@ -7171,14 +7338,16 @@ void parse_options(void *optctx, int argc, char **argv, const OptionDefinition *
 
     int optindex, handleoptions = 1, ret;
 
-    /* perform system-dependent conversions for arguments list */
+    // perform system-dependent conversions for arguments list
     prepare_app_arguments(&argc, &argv);
 
     /* parse options */
     optindex = 1;
 
+    // loop through command line arguments
     while (optindex < argc)
     {
+        // get the next command line arguments
         opt = argv[optindex++];
 
         if (handleoptions && opt[0] == '-' && opt[1] != '\0')
@@ -7242,6 +7411,7 @@ int main(int argc, char * argv[])
     // do a global initialization of network libraries
     avformat_network_init();
 
+    //
     init_opts();
 
     // Set SIGINT - "interrupt", interactive attention request signal handler
@@ -7250,17 +7420,23 @@ int main(int argc, char * argv[])
     // Set SIGTERM - "terminate", termination request signal handler
     signal(SIGTERM, sigterm_handler);
 
+    // show program banner: contains program copyright, version and libs configuration
     show_banner(argc, argv, program_options);
 
+    //
     parse_options(NULL, argc, argv, program_options, opt_input_file);
 
+    // if no input file was provided in the command line arguments
     if (!input_filename)
     {
+        // print program usage information
         show_usage();
 
+        // print log messages to stderr warning the user he inputed incorrect command line arguments
         av_log(NULL, AV_LOG_FATAL, "An input file must be specified\n");
         av_log(NULL, AV_LOG_FATAL, "Use -h to get full help or, even better, run 'man %s'\n", program_name);
 
+        // terminate program execution with 1
         exit(1);
     }
 
@@ -7294,6 +7470,8 @@ int main(int argc, char * argv[])
     {
         av_log(NULL, AV_LOG_FATAL, "Could not initialize SDL - %s\n", SDL_GetError());
         av_log(NULL, AV_LOG_FATAL, "(Did you set the DISPLAY variable?)\n");
+
+        // terminate program execution with 1
         exit(1);
     }
 
