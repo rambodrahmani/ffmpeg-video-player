@@ -24,3 +24,4 @@ add_executable(create_window create_window.c)
 ##
 target_include_directories(create_window PRIVATE ${FFMPEG_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS})
 target_link_libraries(create_window PRIVATE ${FFMPEG_LIBRARIES} ${SDL2_LIBRARIES})
+

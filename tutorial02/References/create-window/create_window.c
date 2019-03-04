@@ -1,12 +1,13 @@
 /**
-*
-*   File:   create_window.c
-*           Originally seen at: https://wiki.libsdl.org/SDL_CreateWindow
-*           Refer to previous examples for uncommented lines of code.
-*
-*   Author: Rambod Rahmani <rambodrahmani@autistici.org>
-*
-**/
+ *
+ *   File:   create_window.c
+ *           Originally seen at: https://wiki.libsdl.org/SDL_CreateWindow
+ *           Refer to previous examples for uncommented lines of code.
+ *
+ *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *
+ **/
+
 #include <stdio.h>
 #include <SDL2/SDL.h>
 
@@ -78,3 +79,4 @@ int main(int argc, char *argv[])
  * still fail. Window size is actually limited to 16384 x 16384 for all
  * platforms at window creation.
  */
+

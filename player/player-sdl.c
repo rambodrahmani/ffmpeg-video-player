@@ -1,12 +1,12 @@
 /**
-*
-*   File:   player-sdl.c
-*           Full FFmpeg player forked from the original FFplay.
-*
-*   Author: Rambod Rahmani <rambodrahmani@autistici.org>
-*           Created on 11/27/18.
-*
-**/
+ *
+ *   File:   player-sdl.c
+ *           Full FFmpeg player forked from the original FFplay.
+ *
+ *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *           Created on 11/27/18.
+ *
+ **/
 
 #include <inttypes.h>
 #include <math.h>
@@ -7571,3 +7571,4 @@ int main(int argc, char * argv[])
  *  To use libavdevice, simply call avdevice_register_all() to register all compiled
  *  muxers and demuxers. They all use standard libavformat API.
  */
+

@@ -1,11 +1,11 @@
 /**
-*
-*   File:   player-sdl2.c
-*
-*   Author: Rambod Rahmani <rambodrahmani@autistici.org>
-*           Created on 11/27/18.
-*
-**/
+ *
+ *   File:   player-sdl2.c
+ *
+ *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *           Created on 11/27/18.
+ *
+ **/
 
 #include <inttypes.h>
 #include <math.h>
@@ -29,9 +29,9 @@
 #include <libavutil/opt.h>
 #include <libavcodec/avfft.h>
 #include <libswresample/swresample.h>
-# include <libavfilter/avfilter.h>
-# include <libavfilter/buffersink.h>
-# include <libavfilter/buffersrc.h>
+#include <libavfilter/avfilter.h>
+#include <libavfilter/buffersink.h>
+#include <libavfilter/buffersrc.h>
 
 /**
  * Entry point.
@@ -45,3 +45,4 @@ int main(int argc, char * argv[])
 {
     return 0;
 }
+

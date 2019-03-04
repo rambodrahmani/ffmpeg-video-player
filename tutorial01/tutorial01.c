@@ -1,17 +1,22 @@
 /**
-*
-*   File:   tutorial01.c
-*           First, let's see how we open a file in the first place.
-*           This implementation uses the new FFmpeg API.
-*
-*           Compiled using
-*               gcc -o tutorial01 tutorial01.c -lavutil -lavformat -lavcodec -lswscale -lz -lm
-*           on Arch Linux.
-*
-*   Author: Rambod Rahmani <rambodrahmani@autistici.org>
-*           Created on 8/6/18.
-*
-**/
+ *
+ *   File:   tutorial01.c
+ *           First, let's see how we open a file in the first place.
+ *           This implementation uses the new FFmpeg API.
+ *
+ *           Compiled using
+ *               $ gcc -o tutorial01 tutorial01.c -lavutil -lavformat -lavcodec -lswscale -lz -lm
+ *           on Arch Linux.
+ *           You can also compile all the source files in this repo using the
+ *           provided CMake files using
+ *           	$ cmake CMakeLists.txt -Bcmake-build-debug
+ *           	$ cd cmake-build-debug/
+ *           	$ make
+ *
+ *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *           Created on 8/6/18.
+ *
+ **/
 
 #include <stdio.h>
 #include <libavcodec/avcodec.h>
@@ -33,7 +38,8 @@ void saveFrame(AVFrame * avFrame, int width, int height, int frameIndex);
 int main(int argc, char * argv[])
 {
     // with ffmpeg, you have to first initialize the library.
-    // 'av_register_all' is deprecated
+    // 'av_register_all' is deprecated just omit this function call in ffmpeg
+    // 4.0 and later.
     // av_register_all();  // [0]
 
     // we get our filename from the first argument, check if the file name is
@@ -112,8 +118,8 @@ int main(int argc, char * argv[])
     /**
      * New API.
      * This implementation uses the new API.
-     * Please refer to tutorial01-deprecated.c for an implementation using the deprecated
-     * FFmpeg API.
+     * Please refer to tutorial01-deprecated.c for an implementation using the
+     * deprecated FFmpeg API.
      */
 
     // Get a pointer to the codec context for the video stream.
@@ -213,7 +219,7 @@ int main(int argc, char * argv[])
     int numBytes;
 
     // Determine required buffer size and allocate buffer
-    //numBytes = avpicture_get_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);
+    // numBytes = avpicture_get_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);
     // https://ffmpeg.org/pipermail/ffmpeg-devel/2016-January/187299.html
     // what is 'linesize alignment' meaning?:
     // https://stackoverflow.com/questions/35678041/what-is-linesize-alignment-meaning
@@ -648,7 +654,8 @@ void saveFrame(AVFrame *avFrame, int width, int height, int frameIndex)
 
 // [10]
 /**
- * Return the size in bytes of the amount of data required to store an image with the given parameters.
+ * Return the size in bytes of the amount of data required to store an image
+ * with the given parameters.
  */
 
 // [11]
@@ -777,3 +784,4 @@ void saveFrame(AVFrame *avFrame, int width, int height, int frameIndex)
  * ffmpeg's parser ensures that the packets we get contain either complete or
  * multiple frames.
  */
+

@@ -1,11 +1,12 @@
 /**
-*
-*   File:   moving_rectangle.c
-*           Originally seen at: https://wiki.libsdl.org/SDL_CreateTexture
-*
-*   Author: Rambod Rahmani <rambodrahmani@autistici.org>
-*
-**/
+ *
+ *   File:   moving_rectangle.c
+ *           Originally seen at: https://wiki.libsdl.org/SDL_CreateTexture
+ *
+ *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *
+ **/
+
 #include <stdio.h>
 #include <SDL2/SDL.h>
 

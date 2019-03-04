@@ -7,3 +7,4 @@
 #   SDL_LIBRARIES    - Link these to use the required ffmpeg components.
 ##
 PKG_SEARCH_MODULE(SDL REQUIRED sdl)
+

@@ -19,8 +19,8 @@ set(CMAKE_C_STANDARD 99)
 add_executable(tutorial01-deprecated tutorial01-deprecated.c)
 
 ##
-# Adds include directories to be used when compiling and libraries to be used when
-# linking target tutorial01-deprecated.
+# Adds include directories to be used when compiling and libraries to be used
+# when linking target tutorial01-deprecated.
 ##
 target_include_directories(tutorial01-deprecated PRIVATE ${FFMPEG_INCLUDE_DIRS})
 target_link_libraries(tutorial01-deprecated PRIVATE ${FFMPEG_LIBRARIES})
@@ -31,8 +31,9 @@ target_link_libraries(tutorial01-deprecated PRIVATE ${FFMPEG_LIBRARIES})
 add_executable(tutorial01 tutorial01.c)
 
 ##
-# Adds include directories to be used when compiling and libraries to be used when
-# linking target tutorial01.
+# Adds include directories to be used when compiling and libraries to be used
+# when linking target tutorial01.
 ##
 target_include_directories(tutorial01 PRIVATE ${FFMPEG_INCLUDE_DIRS})
 target_link_libraries(tutorial01 PRIVATE ${FFMPEG_LIBRARIES})
+

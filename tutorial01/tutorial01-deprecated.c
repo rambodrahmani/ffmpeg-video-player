@@ -1,17 +1,23 @@
 /**
-*
-*   File:   tutorial01-deprecated.c
-*           First, let's see how we open a file in the first place.
-*           This implementation uses the deprecated FFmpeg API.
-*
-*           Compiled using
-*               gcc -o tutorial01-deprecated tutorial01-deprecated.c -lavutil -lavformat -lavcodec -lswscale -lz -lm
-*           on Arch Linux.
-*
-*   Author: Rambod Rahmani <rambodrahmani@autistici.org>
-*           Created on 8/6/18.
-*
-**/
+ *
+ *   File:   tutorial01-deprecated.c
+ *           First, let's see how we open a file in the first place.
+ *           This implementation uses the deprecated FFmpeg API.
+ *
+ *           Compiled using
+ *               gcc -o tutorial01-deprecated tutorial01-deprecated.c -lavutil -lavformat -lavcodec -lswscale -lz -lm
+ *           on Arch Linux.
+ *           You can also compile all the source files in this repo using the
+ *           provided CMake files using
+ *           	$ cmake CMakeLists.txt -Bcmake-build-debug
+ *           	$ cd cmake-build-debug/
+ *           	$ make
+ *
+ *
+ *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *           Created on 8/6/18.
+ *
+ **/
 
 #include <stdio.h>
 #include <libavcodec/avcodec.h>
@@ -688,3 +694,4 @@ void saveFrame(AVFrame *avFrame, int width, int height, int frameIndex)
  * ffmpeg's parser ensures that the packets we get contain either complete or
  * multiple frames.
  */
+

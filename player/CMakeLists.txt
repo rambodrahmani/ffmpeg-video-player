@@ -36,3 +36,4 @@ add_executable(player-sdl2 player-sdl2.c)
 ##
 target_include_directories(player-sdl2 PRIVATE ${FFMPEG_INCLUDE_DIRS} ${SDL2_INCLUDE_DIRS})
 target_link_libraries(player-sdl2 PRIVATE ${FFMPEG_LIBRARIES} ${SDL2_LIBRARIES} m)
+

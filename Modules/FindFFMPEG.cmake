@@ -9,7 +9,7 @@
 
 ##
 # FFMPEG_FOUND set to TRUE as default.
-# Will be set to FALSE in case one of the required components are not found.
+# Will be set to FALSE in case one of the required components is not found.
 ##
 set(${FFMPEG_FOUND} TRUE)
 
@@ -124,3 +124,4 @@ if (SWRESAMPLE_INCLUDE_DIR AND SWRESAMPLE_LIBRARY)
 else()
     set(${FFMPEG_FOUND} FALSE)
 endif(SWRESAMPLE_INCLUDE_DIR AND SWRESAMPLE_LIBRARY)
+
