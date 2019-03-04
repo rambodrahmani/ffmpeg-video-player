@@ -38,7 +38,7 @@ void saveFrame(AVFrame * avFrame, int width, int height, int frameIndex);
 int main(int argc, char * argv[])
 {
     // with ffmpeg, you have to first initialize the library.
-    av_register_all();  // [0]
+    av_register_all(); // [0]
 
     // we get our filename from the first argument, check if the file name is
     // provided, show help menu if not
@@ -57,7 +57,7 @@ int main(int argc, char * argv[])
     // now we can actually open the file:
     // the minimum information required to open a file is its URL, which is
     // passed to avformat_open_input(), as in the following code:
-    int ret = avformat_open_input(&pFormatCtx, argv[1], NULL, NULL);    // [2]
+    int ret = avformat_open_input(&pFormatCtx, argv[1], NULL, NULL); // [2]
     if (ret < 0)
     {
         // couldn't open file
@@ -100,7 +100,7 @@ int main(int argc, char * argv[])
     for (i = 0; i < pFormatCtx->nb_streams; i++)
     {
         // check the General type of the encoded data to match AVMEDIA_TYPE_VIDEO
-        if (pFormatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)    // [5]
+        if (pFormatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) // [5]
         {
             videoStream = i;
             break;
@@ -157,7 +157,7 @@ int main(int argc, char * argv[])
     }
 
     // Open codec
-    ret = avcodec_open2(pCodecCtx, pCodec, NULL);   // [8]
+    ret = avcodec_open2(pCodecCtx, pCodec, NULL); // [8]
     if (ret < 0)
     {
         // Could not open codec
@@ -171,7 +171,7 @@ int main(int argc, char * argv[])
     AVFrame * pFrame = NULL;
 
     // Allocate video frame
-    pFrame = av_frame_alloc();  // [9]
+    pFrame = av_frame_alloc(); // [9]
     if (pFrame == NULL)
     {
         // Could not allocate frame
@@ -209,7 +209,7 @@ int main(int argc, char * argv[])
     int numBytes;
 
     // Determine required buffer size and allocate buffer
-    numBytes = avpicture_get_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height);  // [10]
+    numBytes = avpicture_get_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height); // [10]
     buffer = (uint8_t *)av_malloc(numBytes*sizeof(uint8_t));    // [11]
 
     /**
@@ -251,7 +251,7 @@ int main(int argc, char * argv[])
     }
 
     // initialize SWS context for software scaling
-    sws_ctx = sws_getContext(   // [13]
+    sws_ctx = sws_getContext( // [13]
         pCodecCtx->width,
         pCodecCtx->height,
         pCodecCtx->pix_fmt,
@@ -286,19 +286,19 @@ int main(int argc, char * argv[])
      */
 
     i = 0;
-    while (av_read_frame(pFormatCtx, pPacket) >= 0)  // [14]
+    while (av_read_frame(pFormatCtx, pPacket) >= 0) // [14]
     {
         // Is this a packet from the video stream?
         if (pPacket->stream_index == videoStream)
         {
             // Decode video frame
-            avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, pPacket);  // [15]
+            avcodec_decode_video2(pCodecCtx, pFrame, &frameFinished, pPacket); // [15]
 
             // Did we get a video frame?
             if (frameFinished)
             {
                 // Convert the image from its native format to RGB
-                sws_scale(  // [16]
+                sws_scale( // [16]
                     sws_ctx,
                     (uint8_t const * const *)pFrame->data,
                     pFrame->linesize,

@@ -101,8 +101,9 @@ int main(int argc, char * argv[])
     int videoStream = -1;
     for (i = 0; i < pFormatCtx->nb_streams; i++)
     {
-        // check the General type of the encoded data to match AVMEDIA_TYPE_VIDEO
-        if (pFormatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO)    // [5]
+        // check the General type of the encoded data to match
+	// AVMEDIA_TYPE_VIDEO
+        if (pFormatCtx->streams[i]->codecpar->codec_type == AVMEDIA_TYPE_VIDEO) // [5]
         {
             videoStream = i;
             break;
@@ -223,7 +224,7 @@ int main(int argc, char * argv[])
     // https://ffmpeg.org/pipermail/ffmpeg-devel/2016-January/187299.html
     // what is 'linesize alignment' meaning?:
     // https://stackoverflow.com/questions/35678041/what-is-linesize-alignment-meaning
-    numBytes = av_image_get_buffer_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height, 32);  // [10]
+    numBytes = av_image_get_buffer_size(AV_PIX_FMT_RGB24, pCodecCtx->width, pCodecCtx->height, 32); // [10]
     buffer = (uint8_t *) av_malloc(numBytes * sizeof(uint8_t));    // [11]
 
     /**
@@ -366,7 +367,9 @@ int main(int argc, char * argv[])
 
                     // print log information
                     printf(
-                        "Frame %c (%d) pts %d dts %d key_frame %d [coded_picture_number %d, display_picture_number %d, %dx%d]\n",
+                        "Frame %c (%d) pts %d dts %d key_frame %d "
+			"[coded_picture_number %d, display_picture_number %d,"
+			" %dx%d]\n",
                         av_get_picture_type_char(pFrame->pict_type),
                         pCodecCtx->frame_number,
                         pFrameRGB->pts,

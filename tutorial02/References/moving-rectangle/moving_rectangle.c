@@ -4,6 +4,7 @@
  *           Originally seen at: https://wiki.libsdl.org/SDL_CreateTexture
  *
  *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+ *           Created on 8/11/18.
  *
  **/
 
@@ -91,7 +92,8 @@ int main(int argc, char *argv[])
     // Use this function to create a 2D rendering context for a window.
     renderer = SDL_CreateRenderer(
             window, // the window where rendering is displayed
-            -1,     // the index of the rendering driver to initialize, or -1 to initialize the first one supporting the requested flags
+            -1,     // the index of the rendering driver to initialize, or -1 to
+                    // initialize the first one supporting the requested flags
             0       // 0, or one or more SDL_RendererFlags OR'd together
     );
 
@@ -126,7 +128,9 @@ int main(int argc, char *argv[])
         // SDL_GetError() for more information.
         SDL_SetRenderTarget(
                 renderer,   // the rendering context
-                texture     // the targeted texture, which must be created with the SDL_TEXTUREACCESS_TARGET flag, or NULL for the default render target
+                texture     // the targeted texture, which must be created with
+                            // the SDL_TEXTUREACCESS_TARGET flag, or NULL for
+                            // the default render target
         );
 
         // Use this function to set the color used for drawing operations
@@ -138,7 +142,10 @@ int main(int argc, char *argv[])
                 0x00,       // r, the red value used to draw on the rendering target
                 0x00,       // g, the green value used to draw on the rendering target
                 0x00,       // b, the blue value used to draw on the rendering target
-                0x00        // a, the alpha value used to draw on the rendering target; usually SDL_ALPHA_OPAQUE (255). Use SDL_SetRenderDrawBlendMode to specify how the alpha channel is used
+                0x00        // a, the alpha value used to draw on the rendering target;
+                            // usually SDL_ALPHA_OPAQUE (255). Use 
+                            // SDL_SetRenderDrawBlendMode to specify how the 
+                            // alpha channel is used
         );
 
         // Use this function to clear the current rendering target with the
@@ -148,7 +155,8 @@ int main(int argc, char *argv[])
         // Use this function to draw a rectangle on the current rendering target.
         SDL_RenderDrawRect(
                 renderer,   // the rendering context
-                &r          // an SDL_Rect structure representing the rectangle to draw, or NULL to outline the entire rendering target
+                &r          // an SDL_Rect structure representing the rectangle 
+                            // to draw, or NULL to outline the entire rendering target
         );
 
         SDL_SetRenderDrawColor(
@@ -163,7 +171,8 @@ int main(int argc, char *argv[])
         // with the drawing color.
         SDL_RenderFillRect(
                 renderer,   // the rendering context
-                &r          // the SDL_Rect structure representing the rectangle to fill, or NULL for the entire rendering target
+                &r          // the SDL_Rect structure representing the rectangle
+                            // to fill, or NULL for the entire rendering target
         );
 
         SDL_SetRenderTarget(renderer, NULL);
@@ -262,3 +271,4 @@ int main(int argc, char *argv[])
  * application is shutdown, but it is not wise to do this from a library or
  * other dynamically loaded code.
  */
+

@@ -5,6 +5,7 @@
 *           Refer to previous examples for uncommented lines of code.
 *
 *   Author: Rambod Rahmani <rambodrahmani@autistici.org>
+*           Created on 8/11/18.
 *
 **/
 #include <stdio.h>
@@ -95,3 +96,4 @@ int main(int argc, char *argv[])
  * still fail. Window size is actually limited to 16384 x 16384 for all
  * platforms at window creation.
  */
+
