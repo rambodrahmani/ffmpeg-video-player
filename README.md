@@ -2,18 +2,18 @@
 The project was developed on Arch Linux and all tutorials have been compiled and
 executed only on Arch Linux. To get everything ready to compile the source
 codes, just install FFMpeg:
-`
+```
 sudo pacman -S ffmpeg
-`
+```
 For the development version, install the ffmpeg-git package.
-`
+```
 yay -S ffmpeg-git
-`
+```
 There is also ffmpeg-full, which is built with as many optional features enabled
 as possible.
-`
+```
 yay -S ffmpeg-full
-`
+```
 
 # An FFmpeg and SDL Tutorial
 
