@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/tutorial04-resampled.dir/tutorial04-resampled.c.o  -o tutorial04-resampled /usr/lib/libavcodec.so /usr/lib/libavformat.so /usr/lib/libavdevice.so /usr/lib/libavutil.so /usr/lib/libavfilter.so /usr/lib/libswscale.so /usr/lib/libswresample.so -lSDL2 -lm 

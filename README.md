@@ -15,6 +15,72 @@ as possible.
 yay -S ffmpeg-full
 ```
 
+# Compilation
+Each tutorial can be compiled manually using
+```
+$ gcc -o tutorial01 tutorial01.c -lavutil -lavformat -lavcodec -lswscale -lz -lm
+```
+You can also compile all the source files in this repo using the provided CMake
+files using
+```
+$ cmake CMakeLists.txt -Bcmake-build-debug
+$ cd cmake-build-debug/
+$ make
+```
+As an example:
+```
+[rambodrahmani@rr-workstation ffmpeg-video-player]$ ls -l
+total 88
+drwxr-xr-x 11 rambodrahmani rambodrahmani  4096 17 ott 19.39 cmake-build-debug
+-rw-r--r--  1 rambodrahmani rambodrahmani   927 17 ott 19.39 CMakeLists.txt
+-rw-r--r--  1 rambodrahmani rambodrahmani 35149 17 ott 19.39 LICENSE
+drwxr-xr-x  2 rambodrahmani rambodrahmani  4096 17 ott 19.39 Modules
+drwxr-xr-x  2 rambodrahmani rambodrahmani  4096 17 ott 19.39 player
+-rw-r--r--  1 rambodrahmani rambodrahmani  7648 17 ott 20.01 README.md
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial01
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial02
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial03
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial04
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial05
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial06
+drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial07
+[rambodrahmani@rr-workstation ffmpeg-video-player]$ cmake CMakeLists.txt -Bcmake-build-debug
+-- The C compiler identification is GNU 9.2.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.6.3") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/rambodrahmani/DevOps/ffmpeg-video-player/cmake-build-debug
+[rambodrahmani@rr-workstation ffmpeg-video-player]$ cd cmake-build-debug/
+[rambodrahmani@rr-workstation cmake-build-debug]$ make
+Scanning dependencies of target tutorial01-deprecated
+[  2%] Building C object tutorial01/CMakeFiles/tutorial01-deprecated.dir/tutorial01-deprecated.c.o
+/home/rambodrahmani/DevOps/ffmpeg-video-player/tutorial01/tutorial01-deprecated.c: In function ‘main’:
+
+[...]
+
+[ 94%] Linking C executable player-sdl
+[ 94%] Built target player-sdl
+Scanning dependencies of target player-sdl2
+[ 97%] Building C object player/CMakeFiles/player-sdl2.dir/player-sdl2.c.o
+[100%] Linking C executable player-sdl2
+[100%] Built target player-sdl2
+
+[rambodrahmani@rr-workstation cmake-build-debug]$ ./tutorial01/tutorial01
+Invalid arguments.
+
+Usage: ./tutorial01 <filename> <max-frames-to-decode>
+
+e.g: ./tutorial01 /home/rambodrahmani/Videos/Labrinth-Jealous.mp4 200
+[rambodrahmani@rr-workstation cmake-build-debug]$ cd ..
+[rambodrahmani@rr-workstation ffmpeg-video-player]$ 
+```
+
 # Tearing
 Starting from tutorial03 and noticed some screen tearing happening when playing
 the media. To be precise vertical tearing.

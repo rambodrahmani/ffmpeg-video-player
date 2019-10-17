@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/tutorial03-resampled-deprecated.dir/tutorial03-resampled-deprecated.c.o  -o tutorial03-resampled-deprecated /usr/lib/libavcodec.so /usr/lib/libavformat.so /usr/lib/libavdevice.so /usr/lib/libavutil.so /usr/lib/libavfilter.so /usr/lib/libswscale.so /usr/lib/libswresample.so -lSDL -lpthread 
