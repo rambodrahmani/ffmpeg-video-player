@@ -15,6 +15,62 @@ as possible.
 yay -S ffmpeg-full
 ```
 
+# Tearing
+Starting from tutorial03 and noticed some screen tearing happening when playing
+the media. To be precise vertical tearing.
+
+At the time of this writing I am using Arch Linux and after making sure the
+problem was not my code and some troubleshooting I managed to fix the tearing.
+
+First of all use the following command to find out your graphic card:
+```
+[rambodrahmani@rr-workstation ~]$ lspci
+00:00.0 Host bridge: Intel Corporation Intel Kaby Lake Host Bridge (rev 05)
+00:01.0 PCI bridge: Intel Corporation Xeon E3-1200 v5/E3-1500 v5/6th Gen Core Processor PCIe Controller (x16) (rev 05)
+00:02.0 VGA compatible controller: Intel Corporation HD Graphics 630 (rev 04)
+00:14.0 USB controller: Intel Corporation 200 Series PCH USB 3.0 xHCI Controller
+00:16.0 Communication controller: Intel Corporation 200 Series PCH CSME HECI #1
+00:17.0 SATA controller: Intel Corporation 200 Series PCH SATA controller [AHCI mode]
+00:1b.0 PCI bridge: Intel Corporation 200 Series PCH PCI Express Root Port #17 (rev f0)
+00:1c.0 PCI bridge: Intel Corporation 200 Series PCH PCI Express Root Port #1 (rev f0)
+00:1c.2 PCI bridge: Intel Corporation 200 Series PCH PCI Express Root Port #3 (rev f0)
+00:1c.6 PCI bridge: Intel Corporation 200 Series PCH PCI Express Root Port #7 (rev f0)
+00:1d.0 PCI bridge: Intel Corporation 200 Series PCH PCI Express Root Port #9 (rev f0)
+00:1f.0 ISA bridge: Intel Corporation 200 Series PCH LPC Controller (Z270)
+00:1f.2 Memory controller: Intel Corporation 200 Series PCH PMC
+00:1f.3 Audio device: Intel Corporation 200 Series PCH HD Audio
+00:1f.4 SMBus: Intel Corporation 200 Series PCH SMBus Controller
+00:1f.6 Ethernet controller: Intel Corporation Ethernet Connection (2) I219-LM
+01:00.0 PCI bridge: PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch (rev ca)
+02:08.0 PCI bridge: PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch (rev ca)
+02:10.0 PCI bridge: PLX Technology, Inc. PEX 8747 48-Lane, 5-Port PCI Express Gen 3 (8.0 GT/s) Switch (rev ca)
+06:00.0 USB controller: ASMedia Technology Inc. Device 2142
+07:00.0 Ethernet controller: Intel Corporation I210 Gigabit Network Connection (rev 03)
+08:00.0 USB controller: ASMedia Technology Inc. Device 2142
+```
+As you can see I am using the 
+```
+Intel Corporation HD Graphics 630 (rev 04)
+```
+Often it is not recommended, however for the DDX driver (which provides 2D
+acceleration in Xorg), install the xf86-video-intel package.
+
+The Intel kernel module should load fine automatically on system boot. 
+
+The SNA acceleration method causes tearing on some machines. To fix this, enable
+the "TearFree" option in the driver by adding the following line to your
+configuration file:
+```
+/etc/X11/xorg.conf.d/20-intel.conf
+```
+```
+Section "Device"
+ Identifier  "Intel Graphics"
+ Driver      "intel"
+ Option      "TearFree" "true"
+EndSection
+```
+
 # An FFmpeg and SDL Tutorial
 
 This repo contains an updated and reviewed version of the original
