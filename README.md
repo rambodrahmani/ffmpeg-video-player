@@ -29,21 +29,6 @@ $ make
 ```
 As an example:
 ```
-[rambodrahmani@rr-workstation ffmpeg-video-player]$ ls -l
-total 88
-drwxr-xr-x 11 rambodrahmani rambodrahmani  4096 17 ott 19.39 cmake-build-debug
--rw-r--r--  1 rambodrahmani rambodrahmani   927 17 ott 19.39 CMakeLists.txt
--rw-r--r--  1 rambodrahmani rambodrahmani 35149 17 ott 19.39 LICENSE
-drwxr-xr-x  2 rambodrahmani rambodrahmani  4096 17 ott 19.39 Modules
-drwxr-xr-x  2 rambodrahmani rambodrahmani  4096 17 ott 19.39 player
--rw-r--r--  1 rambodrahmani rambodrahmani  7648 17 ott 20.01 README.md
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial01
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial02
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial03
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial04
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial05
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial06
-drwxr-xr-x  3 rambodrahmani rambodrahmani  4096 17 ott 19.39 tutorial07
 [rambodrahmani@rr-workstation ffmpeg-video-player]$ cmake CMakeLists.txt -Bcmake-build-debug
 -- The C compiler identification is GNU 9.2.0
 -- Check for working C compiler: /usr/bin/cc
