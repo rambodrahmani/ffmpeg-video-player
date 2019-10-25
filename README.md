@@ -1,3 +1,6 @@
+# FFmpeg Video Player
+![FFmpeg Video Player](screenshots/2019-10-25-200143_1366x768_scrot)
+
 # Prerequisites (Linux)
 The project was developed on Arch Linux and all tutorials have been compiled and
 executed only on Arch Linux. To get everything ready to compile the source
