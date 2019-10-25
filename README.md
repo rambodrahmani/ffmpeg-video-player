@@ -1,5 +1,5 @@
 # FFmpeg Video Player
-![FFmpeg Video Player](/screenshots/2019-10-25-224815_1366x768_scrot.png)
+![FFmpeg Video Player](/screenshots/2019-10-25-224809_1366x768_scrot.png)
 
 # Prerequisites (Linux)
 The project was developed on Arch Linux and all tutorials have been compiled and
