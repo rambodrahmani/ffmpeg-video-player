@@ -65,6 +65,23 @@ e.g: ./tutorial01 /home/rambodrahmani/Videos/Labrinth-Jealous.mp4 200
 [rambodrahmani@rr-workstation cmake-build-debug]$ cd ..
 [rambodrahmani@rr-workstation ffmpeg-video-player]$ 
 ```
+# Major opcode of failed request:  151 (GLX)
+In case you end up having this error when trying to execute one of the
+tutorials, then refer to the `Tearing` section below.
+
+# Major opcode of failed request:  152 (GLX)
+In case you end up having this error when trying to execute one of the
+tutorials, then you are probabily have nvidia drivers installed on your system
+with no NVIDIA Hardware. To check if this is the case, just run
+```
+pacman -Qs nvidia
+```
+if you find, among the other packages, the ```nvidia-340xx-utils``` and no
+NVIDIA hardware in your machine, then you have to remove it
+```
+sudo pacman -R nvidia-340xx-utils
+```
+and reboot.
 
 # Tearing
 Starting from tutorial03 and noticed some screen tearing happening when playing
@@ -121,6 +138,7 @@ Section "Device"
  Option      "TearFree" "true"
 EndSection
 ```
+and reboot.
 
 # An FFmpeg and SDL Tutorial
 

@@ -8,7 +8,6 @@ The main difference with the original FFplay lies in the fact that I did my best
 in order to avoid deprecated APIs (both as far as it concerns FFmpeg and SDL).
 Additionally, while the Ffplay uses SDL, this fork uses SDL2.
 
-As you can see, two version of the player are provided: **player-sdl.c**, as I
-said, is the SDL2 based fork of FFplay, while **player-glfw.c** uses GLFW
-instead of SDL2.
+As you can see, two version of the player are provided: **player-sdl2.c** is the
+SDL2 based fork of FFplay, while **player-glfw.c** uses GLFW instead of SDL2.
 
