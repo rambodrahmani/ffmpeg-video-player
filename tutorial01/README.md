@@ -1,4 +1,5 @@
 # Tutorial 01: Making Screencaps
+![Tutorial 01](../screenshots/2019-10-25-224732_1366x768_scrot_000.png)
 
 Movie files have a few basic components. First, the file itself is called a
 container, and the type of container determines where the information in the
