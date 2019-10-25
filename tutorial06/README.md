@@ -1,4 +1,5 @@
 # Tutorial 06: Synching Audio
+![Tutorial 06](../screenshots/2019-10-25-224525_1366x768_scrot.png)
 
 So now we have a decent enough player to watch a movie, so let's see what kind of loose ends we have lying around. Last time, we glossed over synchronization a little bit, namely sychronizing audio to a video clock rather than the other way around. We're going to do this the same way as with the video: make an internal video clock to keep track of how far along the video thread is and sync the audio to that. Later we'll look at how to generalize things to sync both audio and video to an external clock, too.
 

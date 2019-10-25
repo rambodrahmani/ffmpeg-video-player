@@ -1,4 +1,5 @@
 # Tutorial 03: Playing Sound
+![Tutorial 03](../screenshots/2019-10-25-224655_1366x768_scrot.png)
 
 So now we want to play sound. SDL also gives us methods for outputting sound. The SDL_OpenAudio() function is used to open the audio device itself. It takes as arguments an SDL_AudioSpec struct, which contains all the information about the audio we are going to output.
 

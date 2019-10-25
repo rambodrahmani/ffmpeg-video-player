@@ -1,4 +1,5 @@
 # Tutorial 02: SDL and Video
+![Tutorial 02](../screenshots/2019-10-25-224701_1366x768_scrot.png)
 
 To draw to the screen, we're going to use SDL. SDL stands for Simple Direct Layer, and is an excellent library for multimedia, is cross-platform, and is used in several projects. You can get the library at the official website or you can download the development package for your operating system if there is one. You'll need the libraries to compile the code for this tutorial (and for the rest of them, too).
 

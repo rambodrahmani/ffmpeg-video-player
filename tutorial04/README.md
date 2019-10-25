@@ -1,4 +1,5 @@
 # Tutorial 04: Spawning Threads
+![Tutorial 04](../screenshots/2019-10-25-224637_1366x768_scrot.png)
 
 Last time we added audio support by taking advantage of SDL's audio functions. SDL started a thread that made callbacks to a function we defined every time it needed audio. Now we're going to do the same sort of thing with the video display. This makes the code more modular and easier to work with - especially when we want to add syncing. So where do we start?
 

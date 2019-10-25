@@ -1,4 +1,5 @@
 # Tutorial 05: Synching Video
+![Tutorial 05](../screenshots/2019-10-25-224626_1366x768_scrot.png)
 
 ## CAVEAT
 When I first made this tutorial, all of my syncing code was pulled from ffplay.c. Today, it is a totally different program, and improvements in the ffmpeg libraries (and in ffplay.c itself) have caused some strategies to change. While this code still works, it doesn't look good, and there are many more improvements that this tutorial could use.

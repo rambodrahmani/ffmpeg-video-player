@@ -1,4 +1,5 @@
 # Tutorial 07: Seeking
+![Tutorial 07](../screenshots/2019-10-25-224550_1366x768_scrot.png)
 
 ## Handling the seek command
 Now we're going to add some seeking capabilities to our player, because it's really annoying when you can't rewind a movie. Plus, this will show you how easy the av_seek_frame function is to use.
