@@ -1,4 +1,19 @@
 # FFmpeg Video Player
+<!-- PROJECT SHIELDS -->
+<p align="center">
+    <a href="#">
+    <img src="https://img.shields.io/github/languages/top/rambodrahmani/ffmpeg-video-player.svg?logo=github" alt="Github Top Languages">
+    <a href="#">
+    <img src="https://img.shields.io/github/downloads/rambodrahmani/ffmpeg-video-player/total.svg?logo=github" alt="Github Donwloads">
+    <a href="https://github.com/rambodrahmani/ffmpeg-video-player/commits/master">
+    <img src="https://img.shields.io/github/last-commit/rambodrahmani/ffmpeg-video-player.svg?logo=github" alt="GitHub last commit">
+    <a href="https://github.com/rambodrahmani/ffmpeg-video-player/issues">
+    <img src="https://img.shields.io/github/issues-raw/rambodrahmani/ffmpeg-video-player.svg?logo=github" alt="GitHub issues">
+    <a href="https://github.com/rambodrahmani/ffmpeg-video-player/pulls">
+    <img src="https://img.shields.io/github/issues-pr-raw/rambodrahmani/ffmpeg-video-player.svg?logo=github" alt="GitHub pull requests">
+    <a href="https://gitter.im/rr-ffmpeg-video-player/devops">
+    <img src="https://img.shields.io/gitter/room/rambodrahmani/ffmpeg-video-player.svg?logo=gitter" alt="Chat on Gitter">
+</p>
 ![FFmpeg Video Player](/screenshots/2019-10-25-224809_1366x768_scrot.png)
 
 # Prerequisites (Linux)
