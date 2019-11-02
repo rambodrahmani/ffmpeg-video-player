@@ -14,6 +14,7 @@
     <a href="https://gitter.im/rr-ffmpeg-video-player/devops">
     <img src="https://img.shields.io/gitter/room/rambodrahmani/ffmpeg-video-player.svg?logo=gitter" alt="Chat on Gitter">
 </p>
+
 ![FFmpeg Video Player](/screenshots/2019-10-25-224809_1366x768_scrot.png)
 
 # Prerequisites (Linux)
