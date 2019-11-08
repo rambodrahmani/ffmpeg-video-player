@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/github/issues-raw/rambodrahmani/ffmpeg-video-player.svg?logo=github" alt="GitHub issues">
     <a href="https://github.com/rambodrahmani/ffmpeg-video-player/pulls">
     <img src="https://img.shields.io/github/issues-pr-raw/rambodrahmani/ffmpeg-video-player.svg?logo=github" alt="GitHub pull requests">
-    <a href="https://gitter.im/rr-ffmpeg-video-player/devops">
+    <a href="https://gitter.im/ffmpeg-video-player/devops">
     <img src="https://img.shields.io/gitter/room/rambodrahmani/ffmpeg-video-player.svg?logo=gitter" alt="Chat on Gitter">
 </p>
 
