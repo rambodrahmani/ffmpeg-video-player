@@ -502,7 +502,7 @@ void saveFrame(AVFrame *avFrame, int width, int height, int frameIndex)
 * Libavformat (lavf) is a library for dealing with various media container
 * formats. Its main two purposes are demuxing - i.e. splitting a media file
 * into component streams, and the reverse process of muxing - writing supplied
-* data in a specified container format. It also has an @ref lavf_io
+* data in a specified container format. It also has an lavf_io
 * "I/O module" which supports a number of protocols for accessing the data (e.g.
 * file, tcp, http and others). Before using lavf, you need to call
 * av_register_all() to register all compiled muxers, demuxers and protocols.
@@ -517,13 +517,13 @@ void saveFrame(AVFrame *avFrame, int width, int height, int frameIndex)
 * avformat_open_input() might do that for you).
 *
 * Most importantly an AVFormatContext contains:
-* @li the @ref AVFormatContext.iformat "input" or @ref AVFormatContext.oformat
+* the AVFormatContext.iformat "input" or AVFormatContext.oformat
 * "output" format. It is either autodetected or set by user for input;
 * always set by user for output.
-* @li an @ref AVFormatContext.streams "array" of AVStreams, which describe all
+* an AVFormatContext.streams "array" of AVStreams, which describe all
 * elementary streams stored in the file. AVStreams are typically referred to
 * using their index in this array.
-* @li an @ref AVFormatContext.pb "I/O context". It is either opened by lavf or
+* an AVFormatContext.pb "I/O context". It is either opened by lavf or
 * set by user for input, always set by user for output (unless you are dealing
 * with an AVFMT_NOFILE format).
 */
