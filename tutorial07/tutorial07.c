@@ -2238,6 +2238,7 @@ int audio_decode_frame(VideoState * videoState, uint8_t * audio_buf, int buf_siz
         // check global quit flag
         if (videoState->quit)
         {
+            av_frame_free(&avFrame);
             return -1;
         }
 
@@ -2275,6 +2276,7 @@ int audio_decode_frame(VideoState * videoState, uint8_t * audio_buf, int buf_siz
             else if (ret < 0)
             {
                 printf("avcodec_receive_frame decoding error.\n");
+                av_frame_free(&avFrame);
                 return -1;
             }
             else
@@ -2319,6 +2321,13 @@ int audio_decode_frame(VideoState * videoState, uint8_t * audio_buf, int buf_siz
             n = 2 * videoState->audio_ctx->channels;
             videoState->audio_clock += (double)data_size / (double)(n * videoState->audio_ctx->sample_rate);
 
+            if (avPacket->data)
+            {
+                // wipe the packet
+                av_packet_unref(avPacket);
+            }
+            av_frame_free(&avFrame);
+
             // we have the data, return it and come back for more later
             return data_size;
         }
@@ -2355,6 +2364,7 @@ int audio_decode_frame(VideoState * videoState, uint8_t * audio_buf, int buf_siz
         }
     }
 
+    av_frame_free(&avFrame);
     return 0;
 }
 
