@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/moving_rectangle.dir/moving_rectangle.c.o  -o moving_rectangle /usr/lib/libavcodec.so /usr/lib/libavformat.so /usr/lib/libavdevice.so /usr/lib/libavutil.so /usr/lib/libavfilter.so /usr/lib/libswscale.so /usr/lib/libswresample.so -lSDL2 

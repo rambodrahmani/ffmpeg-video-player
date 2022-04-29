@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/tutorial01-deprecated.dir/tutorial01-deprecated.c.o  -o tutorial01-deprecated /usr/lib/libavcodec.so /usr/lib/libavformat.so /usr/lib/libavdevice.so /usr/lib/libavutil.so /usr/lib/libavfilter.so /usr/lib/libswscale.so /usr/lib/libswresample.so 
