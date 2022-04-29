@@ -773,40 +773,8 @@ int stream_component_open(VideoState * videoState, int stream_index)
                                                  NULL
                                     );
 
-            // create a window with the specified position, dimensions, and flags.
-            screen = SDL_CreateWindow(
-                    "FFmpeg SDL Video Player",
-                    SDL_WINDOWPOS_UNDEFINED,
-                    SDL_WINDOWPOS_UNDEFINED,
-                    codecCtx->width/2,
-                    codecCtx->height/2,
-                    SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
-            );
-
-            // check window was correctly created
-            if (!screen)
-            {
-                printf("SDL: could not create window - exiting.\n");
-                return -1;
-            }
-
-            //
-            SDL_GL_SetSwapInterval(1);
-
             // initialize global SDL_Surface mutex reference
             screen_mutex = SDL_CreateMutex();
-
-            // create a 2D rendering context for the SDL_Window
-            videoState->renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
-
-            // create a texture for a rendering context
-            videoState->texture = SDL_CreateTexture(
-                    videoState->renderer,
-                    SDL_PIXELFORMAT_YV12,
-                    SDL_TEXTUREACCESS_STREAMING,
-                    videoState->video_ctx->width,
-                    videoState->video_ctx->height
-            );
         }
         break;
 
@@ -1426,6 +1394,48 @@ static Uint32 sdl_refresh_timer_cb(Uint32 interval, void * param)
  */
 void video_display(VideoState * videoState)
 {
+    // create window, renderer and textures if not already created
+    if (!screen)
+    {
+        // create a window with the specified position, dimensions, and flags.
+        screen = SDL_CreateWindow(
+            "FFmpeg SDL Video Player",
+            SDL_WINDOWPOS_UNDEFINED,
+            SDL_WINDOWPOS_UNDEFINED,
+            videoState->video_ctx->width / 2,
+            videoState->video_ctx->height / 2,
+            SDL_WINDOW_OPENGL | SDL_WINDOW_ALLOW_HIGHDPI
+            );
+
+        SDL_GL_SetSwapInterval(1);
+
+    }
+    // check window was correctly created
+    if (!screen)
+    {
+        printf("SDL: could not create window - exiting.\n");
+        return;
+    }
+
+
+    if (!videoState->renderer)
+    {
+        // create a 2D rendering context for the SDL_Window
+        videoState->renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC | SDL_RENDERER_TARGETTEXTURE);
+    }
+
+    if (!videoState->texture)
+    {
+        // create a texture for a rendering context
+        videoState->texture = SDL_CreateTexture(
+            videoState->renderer,
+            SDL_PIXELFORMAT_YV12,
+            SDL_TEXTUREACCESS_STREAMING,
+            videoState->video_ctx->width,
+            videoState->video_ctx->height
+            );
+    }
+
     // reference for the next VideoPicture to be displayed
     VideoPicture * videoPicture;
 
