@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/player-sdl2.dir/player-sdl2.c.o  -o player-sdl2 /usr/lib/libavcodec.so /usr/lib/libavformat.so /usr/lib/libavdevice.so /usr/lib/libavutil.so /usr/lib/libavfilter.so /usr/lib/libswscale.so /usr/lib/libswresample.so -lSDL2 -lm 

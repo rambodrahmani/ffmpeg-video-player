@@ -1,1 +1,0 @@
-/usr/bin/cc    CMakeFiles/render_present.dir/render_present.c.o  -o render_present /usr/lib/libavcodec.so /usr/lib/libavformat.so /usr/lib/libavdevice.so /usr/lib/libavutil.so /usr/lib/libavfilter.so /usr/lib/libswscale.so /usr/lib/libswresample.so -lSDL2 
