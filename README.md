@@ -95,6 +95,12 @@ Usage: ./tutorial01 <filename> <max-frames-to-decode>
 e.g: ./tutorial01/tutorial01 ../Iron_Man-Trailer_HD.mp4 200
 ```
 
+If you get errors like `Error: cannot open display`, try fixing it by running
+
+```bash
+xhost local:root
+```
+
 # Major opcode of failed request:  151 (GLX)
 In case you end up having this error when trying to execute one of the
 tutorials, then refer to the `Tearing` section below.
