@@ -1,4 +1,5 @@
 # FFmpeg Video Player
+
 <!-- PROJECT SHIELDS -->
 <p align="center">
     <a href="#">
@@ -17,73 +18,83 @@
 
 ![FFmpeg Video Player](/screenshots/2019-10-25-224809_1366x768_scrot.png)
 
-# Prerequisites (Linux)
-The project was developed on Arch Linux and all tutorials have been compiled and
-executed only on Arch Linux. To get everything ready to compile the source
-codes, just install FFMpeg:
+# Setup
+
+The provided Docker file can be used to setup a container with everything that is needed.
+
+```bash
+docker build -t ffmpeg-video-player -f Dockerfile .
 ```
-sudo pacman -S ffmpeg
-```
-For the development version, install the ffmpeg-git package.
-```
-yay -S ffmpeg-git
-```
-There is also ffmpeg-full, which is built with as many optional features enabled
-as possible.
-```
-yay -S ffmpeg-full
+
+Make sure to update the `-v /home/rr/DevOps/:/home/ffmpeg/DevOps` parameter and run the container for the first time using:
+
+```bash
+docker run --gpus 'all,"capabilities=graphics,utility,display,video,compute"' --net host --privileged --name ffmpeg-video-player -itu ffmpeg -e NVIDIA_VISIBLE_DEVICES=all -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix:rw -v /home/rr/DevOps:/home/ffmpeg/DevOps ffmpeg-video-player /bin/bash
 ```
 
 # Compilation
+
 Each tutorial can be compiled manually using
-```
+```bash
+$ cd DevOps/ffmpeg-video-player/tutorial01
 $ gcc -o tutorial01 tutorial01.c -lavutil -lavformat -lavcodec -lswscale -lz -lm
+$ ./tutorial01
 ```
-You can also compile all the source files in this repo using the provided CMake
-files using
-```
-$ cmake CMakeLists.txt -Bcmake-build-debug
-$ cd cmake-build-debug/
+
+You can also compile all the source files in this repo using the provided CMake files using
+```bash
+$ cd DevOps/ffmpeg-video-player/
+$ cmake CMakeLists.txt -B build
+$ cd build/
 $ make
 ```
 As an example:
-```
-[rambodrahmani@rr-workstation ffmpeg-video-player]$ cmake CMakeLists.txt -Bcmake-build-debug
--- The C compiler identification is GNU 9.2.0
--- Check for working C compiler: /usr/bin/cc
--- Check for working C compiler: /usr/bin/cc -- works
+```bash
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cmake CMakeLists.txt -B build
+-- The C compiler identification is GNU 11.4.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
--- Found PkgConfig: /usr/bin/pkg-config (found version "1.6.3") 
+-- Found PkgConfig: /usr/bin/pkg-config (found version "0.29.2") 
+-- Checking for one of the modules 'sdl'
+-- Checking for one of the modules 'sdl2'
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/rambodrahmani/DevOps/ffmpeg-video-player/cmake-build-debug
-[rambodrahmani@rr-workstation ffmpeg-video-player]$ cd cmake-build-debug/
-[rambodrahmani@rr-workstation cmake-build-debug]$ make
-Scanning dependencies of target tutorial01-deprecated
-[  2%] Building C object tutorial01/CMakeFiles/tutorial01-deprecated.dir/tutorial01-deprecated.c.o
-/home/rambodrahmani/DevOps/ffmpeg-video-player/tutorial01/tutorial01-deprecated.c: In function ‘main’:
-
-[...]
-
-[ 94%] Linking C executable player-sdl
+-- Build files have been written to: /home/ffmpeg/DevOps/ffmpeg-video-player/build
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cd build/
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build$ make
+[  5%] Built target tutorial01-deprecated
+[ 11%] Built target tutorial01
+[ 16%] Built target tutorial02-deprecated
+[ 22%] Built target tutorial02
+[ 27%] Built target create_window
+[ 33%] Built target moving_rectangle
+[ 38%] Built target render_present
+[ 44%] Built target tutorial03-deprecated
+[ 50%] Built target tutorial03-resampled-deprecated
+[ 55%] Built target tutorial03-resampled
+[ 61%] Built target tutorial04-deprecated
+[ 66%] Built target tutorial04-resampled-deprecated
+[ 72%] Built target tutorial04-resampled
+[ 77%] Built target tutorial05
+[ 83%] Built target tutorial06
+[ 88%] Built target tutorial07
 [ 94%] Built target player-sdl
-Scanning dependencies of target player-sdl2
-[ 97%] Building C object player/CMakeFiles/player-sdl2.dir/player-sdl2.c.o
-[100%] Linking C executable player-sdl2
 [100%] Built target player-sdl2
+```
 
-[rambodrahmani@rr-workstation cmake-build-debug]$ ./tutorial01/tutorial01
+Then run the desired tutorial:
+```bash
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build$ ./tutorial01/tutorial01
 Invalid arguments.
 
 Usage: ./tutorial01 <filename> <max-frames-to-decode>
 
-e.g: ./tutorial01 /home/rambodrahmani/Videos/Labrinth-Jealous.mp4 200
-[rambodrahmani@rr-workstation cmake-build-debug]$ cd ..
-[rambodrahmani@rr-workstation ffmpeg-video-player]$ 
+e.g: ./tutorial01/tutorial01 ../Iron_Man-Trailer_HD.mp4 200
 ```
+
 # Major opcode of failed request:  151 (GLX)
 In case you end up having this error when trying to execute one of the
 tutorials, then refer to the `Tearing` section below.
