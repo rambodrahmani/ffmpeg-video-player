@@ -44,13 +44,13 @@ $ ./tutorial01
 You can also compile all the source files in this repo using the provided CMake files using
 ```bash
 $ cd DevOps/ffmpeg-video-player/
-$ cmake CMakeLists.txt -B build-debug
-$ cd build-debug/
+$ cmake CMakeLists.txt -B build
+$ cd build/
 $ make
 ```
 As an example:
 ```bash
-ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cmake CMakeLists.txt -B build-debug
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cmake CMakeLists.txt -B build
 -- The C compiler identification is GNU 11.4.0
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
@@ -62,9 +62,9 @@ ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cmake CMakeLists.txt -B buil
 -- Checking for one of the modules 'sdl2'
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/ffmpeg/DevOps/ffmpeg-video-player/build-debug
-ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cd build-debug/
-ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build-debug$ make
+-- Build files have been written to: /home/ffmpeg/DevOps/ffmpeg-video-player/build
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player$ cd build/
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build$ make
 [  5%] Built target tutorial01-deprecated
 [ 11%] Built target tutorial01
 [ 16%] Built target tutorial02-deprecated
@@ -87,7 +87,7 @@ ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build-debug$ make
 
 Then run the desired tutorial:
 ```bash
-ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build-debug$ ./tutorial01/tutorial01
+ffmpeg@rr-workstation:~/DevOps/ffmpeg-video-player/build$ ./tutorial01/tutorial01
 Invalid arguments.
 
 Usage: ./tutorial01 <filename> <max-frames-to-decode>
